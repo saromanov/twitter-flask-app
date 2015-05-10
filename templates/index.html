@@ -1,0 +1,5 @@
+<title>Flask and Twitter</title>
+<p> Application </p>
+{% for message in messages.get().result %}
+    <p style="color: red;">{{ message }}</p>
+{% endfor %}
