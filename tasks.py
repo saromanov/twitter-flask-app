@@ -1,6 +1,7 @@
 from celery import Celery
 from TwitterSearch import TwitterSearchOrder, TwitterSearch
-app = Celery('tasks', backend='redis', broker='redis://localhost:6379')
+app = Celery('tasks')
+app.config_from_object('celeryconfig')
 
 @app.task
 def test_task():
