@@ -2,7 +2,7 @@ from flask import Flask, render_template, redirect, request
 from wtforms import TextField, PasswordField
 from flask.ext.wtf import Form
 from utils import load_keys
-from tasks import getTweetsByWords, test_task
+from tasks import getTweetsByWords, test_task, error_handler
 import argparse
 
 keys_path = None
@@ -21,7 +21,7 @@ class LoginForm(Form):
 @app.route('/', methods=('GET','POST'))
 def index():
     data = load_keys(keys_path)
-    messages = getTweetsByWords.apply_async(args=[data, ""])
+    messages = getTweetsByWords.apply_async(args=[data, ""], link_error=error_handler.s())
     #test_task.apply_async().get()
     return render_template('index.html', messages=messages)
 
